@@ -5,7 +5,7 @@ const notfound = document.getElementById("notfound");
 
 async function getUser() {
   const user = searchInput.value;
-  searchInput.value = ""
+  searchInput.value = "";
   const url = "https://api.github.com/users/" + user;
   const response = await fetch(url);
   const text = await response.text();
@@ -24,49 +24,44 @@ async function getUser() {
     output.style.display = "block";
   }
 
-  
+  const avatar = output.getElementsByTagName("img")[0];
+  avatar.src = obj.avatar_url;
+  const items = output.getElementsByTagName("li");
+  for (let item of items) {
+    if (item.id == "Name") {
+      const link = item.getElementsByTagName("a")[0];
+      link.innerHTML = obj.name;
+      link.href = obj.html_url;
+    } else if (item.id == "Email") {
+      const link = item.getElementsByTagName("a")[0];
+      link.innerHTML = obj.email;
+      link.href = "mailto:" + obj.email;
+    } else if (item.id == "Blog") {
+      const link = item.getElementsByTagName("a")[0];
+      link.innerHTML = obj.blog;
+      link.href = obj.blog;
+    } else if (item.id == "Company") {
+      const para = item.getElementsByTagName("p")[0];
+      para.innerHTML = obj.company;
+    } else if (item.id == "From") {
+      const para = item.getElementsByTagName("p")[0];
+      para.innerHTML = obj.location;
+    } else if (item.id == "Followers") {
+      const para = item.getElementsByTagName("p")[0];
+      para.innerHTML = obj.followers;
+    } else if (item.id == "Followings") {
+      const para = item.getElementsByTagName("p")[0];
+      para.innerHTML = obj.following;
+    } else if (item.id == "CreatedDate") {
+      const para = item.getElementsByTagName("p")[0];
+      const date = new Date(obj.created_at);
+      para.innerHTML = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+    } else if (item.id == "LastVisit") {
+      const para = item.getElementsByTagName("p")[0];
+      const date = new Date(obj.updated_at);
+      para.innerHTML = `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`;
+    }
+  }
 }
 
 searchButton.addEventListener("click", getUser);
-
-/*
-{
-  "login": "kamranahmedse",
-  "id": 4921183,
-  "node_id": "MDQ6VXNlcjQ5MjExODM=",
-  "avatar_url": "https://avatars.githubusercontent.com/u/4921183?v=4",
-  "gravatar_id": "",
-  "url": "https://api.github.com/users/kamranahmedse",
-  "html_url": "https://github.com/kamranahmedse",
-  "followers_url": "https://api.github.com/users/kamranahmedse/followers",
-  "following_url": "https://api.github.com/users/kamranahmedse/following{/other_user}",
-  "gists_url": "https://api.github.com/users/kamranahmedse/gists{/gist_id}",
-  "starred_url": "https://api.github.com/users/kamranahmedse/starred{/owner}{/repo}",
-  "subscriptions_url": "https://api.github.com/users/kamranahmedse/subscriptions",
-  "organizations_url": "https://api.github.com/users/kamranahmedse/orgs",
-  "repos_url": "https://api.github.com/users/kamranahmedse/repos",
-  "events_url": "https://api.github.com/users/kamranahmedse/events{/privacy}",
-  "received_events_url": "https://api.github.com/users/kamranahmedse/received_events",
-  "type": "User",
-  "site_admin": false,
-  "name": "Kamran Ahmed",
-  "company": "roadmap.sh",
-  "blog": "youtube.com/theroadmap",
-  "location": "United Kingdom",
-  "email": null,
-  "hireable": true,
-  "bio": "Lover of all things web and opensource. Coding and writing stuff for humans™. Building roadmap.sh",
-  "twitter_username": "kamrify",
-  "public_repos": 95,
-  "public_gists": 17,
-  "followers": 28814,
-  "following": 154,
-  "created_at": "2013-07-02T12:54:45Z",
-  "updated_at": "2023-08-16T11:20:48Z"
-}
-
-{
-  message: 'Not Found', 
-  documentation_url: 'https://docs.github.com/rest/users/users#get-a-user'
-}
-*/
