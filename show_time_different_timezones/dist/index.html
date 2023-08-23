@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=ADLaM+Display&family=Barriecito&family=Black+Ops+One&family=Dancing+Script&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            background-color: rgb(225, 247, 255);
+        }
+
+        body>main {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        p {
+            margin: 0;
+        }
+
+
+        #output {
+            width: 500px;
+            height: 400px;
+            border: 2px solid black;
+            border-radius: 20px;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-family: 'Dancing Script', cursive;
+            font-size: 30px;
+            background-color: rgb(240, 248, 255);
+        }
+
+        #timezone {
+            color: rgb(123, 123, 123);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #timezone>img {
+            width: 24px;
+            height: 24px;
+        }
+
+        #timezone>img:hover {
+            background-color: rgb(184, 184, 184);
+        }
+
+
+        #time {
+            font-family: 'Barriecito', cursive;
+            font-size: 70px;
+        }
+
+        .modal {
+            display: none;
+        }
+
+        .modal.is-open {
+            display: block;
+        }
+
+        .modal__overlay {
+            position: fixed;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal__container {
+            width: 500px;
+            background-color: rgb(234, 234, 234);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .modal__container>header {
+            background-color: rgb(226, 255, 205);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 10px;
+        }
+
+        .modal__container>header>div {
+            color: red;
+            font-size: 20px;
+            user-select: none;
+            cursor: pointer;
+        }
+        
+        .modal__container>main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            font-size: 20px;
+        }
+
+        #timezone-selector {
+            font-size: inherit;
+            border-radius: 5px;
+            width: 200px;
+        }
+
+        #apply-timezone {
+            font-size: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div id="output">
+            <div id="timezone">
+                <p>
+                </p>
+                <img data-micromodal-trigger="change-timezone-modal" src="edit.svg">
+            </div>
+            <p id="time">
+            </p>
+            <p id="date">
+            </p>
+        </div>
+    </main>
+
+    <div id="change-timezone-modal" aria-hidden="true" class="modal">
+        <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+            <div class="modal__container" role="dialog" aria-modal="true" aria-labelledby="change-timezone-modal-title">
+
+                <header>
+                    <h2 id="change-timezone-modal-title">
+                        Change timezone
+                    </h2>
+
+                    <div aria-label="Close modal" data-micromodal-close>✕</div>
+                </header>
+
+                <main id="change-timezone-modal-content">
+                    <select id="timezone-selector">
+                        <option value="" disabled selected>Choose timezone</option>
+                    </select>
+                    <button data-micromodal-close id="apply-timezone">Apply</button>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+
+</body>
+
+</html>
